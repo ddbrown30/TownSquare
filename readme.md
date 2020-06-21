@@ -8,6 +8,9 @@ Enter the player's name in the text field and either click the Add Player or pre
 #### Adding Travelers:
 Enter the player's name in the text field and click the Add Traveler button.
 
+#### Running a Vote
+To run a vote, select the Start Nomination button. This will hide the timer and replace it with the voting clock hands. Click on the player that has been nominated. This will point the red hour hand at the nominee and the blue minute hand at the next clockwise player. To start the vote, press the Start button at the base of the clockhands. The minute hand will begin rotating around the town. You can adjust the rotation speed by changing the Vote Speed slider. To exit the vote system, click the Stop Nomination button.
+
 #### Everything Else:
 The Randomize button will randomize the position of the tokens in the seating arrangement.
 
