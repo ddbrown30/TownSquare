@@ -29,6 +29,12 @@ public class TownsfolkManager : MonoBehaviour
     public TMP_Text OutsiderCountText;
     public TMP_Text MinionCountText;
 
+    public GameObject Timer;
+
+    public TMP_Text NominateButtonText;
+    public VoteManager VoteManager;
+    public bool IsVoteActive { get; set; }
+
     struct RoleCount
     {
         public RoleCount(int townsfolk, int outsiders, int minions) { Townsfolk = townsfolk; Outsiders = outsiders; Minions = minions; }
@@ -162,9 +168,21 @@ public class TownsfolkManager : MonoBehaviour
         float upAngle = Mathf.Atan2(Vector2.up.y, Vector2.up.x);
         float posAngle = Mathf.Atan2(dir.y, dir.x);
         float angle = Mathf.DeltaAngle(posAngle * Mathf.Rad2Deg, upAngle * Mathf.Rad2Deg) * Mathf.Deg2Rad;
-        if(angle < 0)
+        if (angle < 0)
             angle += Mathf.PI * 2;
         return (int)(angle / angleDivision);
+    }
+
+    public float GetAngleOfIndex(int index)
+    {
+        int townSize = Townsfolk.Count;
+        float angleDivision =(2.0f * Mathf.PI) / townSize;
+        return angleDivision * index;
+    }
+
+    public int GetTownsfolkIndex(TownsfolkToken token)
+    {
+        return Townsfolk.IndexOf(token);
     }
 
     public void MoveTownsfolkToIndex(int index, TownsfolkToken token)
@@ -187,6 +205,24 @@ public class TownsfolkManager : MonoBehaviour
         }
 
         UpdateTown();
+    }
+
+    public void ToggleNomination()
+    {
+        IsVoteActive = !IsVoteActive;
+        Timer.gameObject.SetActive(!IsVoteActive);
+        VoteManager.gameObject.SetActive(IsVoteActive);
+        VoteManager.transform.SetAsLastSibling();
+        VoteManager.ResetHands();
+
+        if (IsVoteActive)
+        {
+            NominateButtonText.text = "Stop Nomination";
+        }
+        else
+        {
+            NominateButtonText.text = "Start Nomination";
+        }
     }
 
     public void OnClickReset()

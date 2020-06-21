@@ -53,7 +53,19 @@ public class TownsfolkToken : MonoBehaviour, IDragHandler, IDropHandler
         }
     }
 
-    public void ToggleAlive()
+    public void OnClickToken()
+    {
+        if(TownsfolkManager.Instance.IsVoteActive)
+        {
+            TownsfolkManager.Instance.VoteManager.SelectNominee(this);
+        }
+        else
+        {
+            ToggleAlive();
+        }
+    }
+
+    void ToggleAlive()
     {
         if (IsAlive)
         {
