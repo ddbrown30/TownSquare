@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class VoteManager : MonoBehaviour
 {
-    TownsfolkToken Nominee;
-
     public GameObject HourHand;
     public GameObject MinuteHand;
 
@@ -48,7 +46,8 @@ public class VoteManager : MonoBehaviour
         if (VoteStarted)
             return;
 
-        Nominee = nominee;
+        CurrentAngle = 0;
+        
         int nomIndex = TownsfolkManager.Instance.GetTownsfolkIndex(nominee);
         NomineeAngle = TownsfolkManager.Instance.GetAngleOfIndex(nomIndex);
         FirstVoteAngle = TownsfolkManager.Instance.GetAngleOfIndex(nomIndex + 1);
@@ -86,9 +85,16 @@ public class VoteManager : MonoBehaviour
         }
     }
 
-    public void ResetHands()
+    public void Reset()
     {
         HourHand.transform.up = Vector2.up;
         MinuteHand.transform.up = Vector2.up;
+        NomineeAngle = 0;
+        FirstVoteAngle = 0;
+        CurrentAngle = 0;
+        TotalAngleToMove = 0;
+
+        VoteStarted = false;
+        StartStopImageComponent.sprite = StartSprite;
     }
 }

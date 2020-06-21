@@ -149,7 +149,7 @@ public class TownsfolkManager : MonoBehaviour
     public void UpdateRoleCounts()
     {
         int townSize = Townsfolk.Count - TravelerCount;
-        int countIndex = Mathf.Clamp(townSize - 5, 0, RoleCounts.Length);
+        int countIndex = Mathf.Clamp(townSize - 5, 0, RoleCounts.Length - 1);
         TotalPlayersCountText.text = townSize.ToString();
         TownsfolkCountText.text = RoleCounts[countIndex].Townsfolk.ToString();
         OutsiderCountText.text = RoleCounts[countIndex].Outsiders.ToString();
@@ -213,7 +213,7 @@ public class TownsfolkManager : MonoBehaviour
         Timer.gameObject.SetActive(!IsVoteActive);
         VoteManager.gameObject.SetActive(IsVoteActive);
         VoteManager.transform.SetAsLastSibling();
-        VoteManager.ResetHands();
+        VoteManager.Reset();
 
         if (IsVoteActive)
         {
