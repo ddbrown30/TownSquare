@@ -50,16 +50,14 @@ public class VoteManager : MonoBehaviour
         
         int nomIndex = TownsfolkManager.Instance.GetTownsfolkIndex(nominee);
         NomineeAngle = TownsfolkManager.Instance.GetAngleOfIndex(nomIndex);
-        FirstVoteAngle = TownsfolkManager.Instance.GetAngleOfIndex(nomIndex + 1);
+        FirstVoteAngle = NomineeAngle;
 
         Vector2 nomDir = RotateVector(Vector2.up, -NomineeAngle);
         HourHand.transform.up = nomDir;
-
-        Vector2 firstVoteDir = RotateVector(Vector2.up, -FirstVoteAngle);
-        MinuteHand.transform.up = firstVoteDir;
+        MinuteHand.transform.up = nomDir;
 
         TotalAngleToMove = Mathf.DeltaAngle(FirstVoteAngle * Mathf.Rad2Deg, NomineeAngle * Mathf.Rad2Deg) * Mathf.Deg2Rad;
-        if (TotalAngleToMove < 0)
+        if (TotalAngleToMove <= 0)
             TotalAngleToMove += Mathf.PI * 2;
     }
 
