@@ -27,10 +27,18 @@ public class TimerScript : MonoBehaviour {
     {
         if (IsStarted)
         {
-            TimeRemaining -= Time.deltaTime;
+            if(TimeRemaining > 0)
+            {
+                TimeRemaining -= Time.deltaTime;
+            }
+
+            if (TimeRemaining < 0)
+            {
+                TimeText.color = Color.red;
+            }
         }
 
-        int secondsRemaining = (int)TimeRemaining;
+        int secondsRemaining = Mathf.CeilToInt(TimeRemaining);
         float minutes = secondsRemaining / 60;
         float seconds = secondsRemaining % 60;
 
@@ -64,6 +72,8 @@ public class TimerScript : MonoBehaviour {
     void StopTimer()
     {
         IsStarted = false;
+
+        TimeText.color = Color.white;
 
         StartStopImageComponent.sprite = StartSprite;
         foreach (var button in TimerButtons)
