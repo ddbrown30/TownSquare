@@ -16,11 +16,13 @@ public class OptionsPanelManager : MonoBehaviour, IPointerEnterHandler, IPointer
     public Slider RadiusSlider;
     public Slider VoteSpeedSlider;
     public BackgroundImageSelector BackgroundSelector;
+    public Toggle ShowTimerToggle;
 
     float DefaultRoleScale = 0.5f;
     float DefaultRadiusScale = 0.6f;
     float DefaultVoteSpeed = 0.6f;
     int DefaultBackgroundIndex = 0;
+    bool DefaultShowTimer = true;
 
     void Awake()
     {
@@ -29,6 +31,7 @@ public class OptionsPanelManager : MonoBehaviour, IPointerEnterHandler, IPointer
         RadiusSlider.value = PlayerPrefs.GetFloat("Radius", DefaultRadiusScale);
         VoteSpeedSlider.value = PlayerPrefs.GetFloat("VoteSpeed", DefaultVoteSpeed);
         BackgroundSelector.SetImageIndex(PlayerPrefs.GetInt("BackgroundIndex", DefaultBackgroundIndex));
+        ShowTimerToggle.isOn = Convert.ToBoolean(PlayerPrefs.GetInt("ShowTimer", Convert.ToInt32(DefaultShowTimer)));
     }
 
     void ResetToDefaults()
@@ -37,11 +40,13 @@ public class OptionsPanelManager : MonoBehaviour, IPointerEnterHandler, IPointer
         RadiusSlider.value = DefaultRadiusScale;
         VoteSpeedSlider.value = DefaultVoteSpeed;
         BackgroundSelector.SetImageIndex(DefaultBackgroundIndex);
+        ShowTimerToggle.isOn = DefaultShowTimer;
 
         PlayerPrefs.SetFloat("RoleScale", RoleScaleSlider.value);
         PlayerPrefs.SetFloat("Radius", RadiusSlider.value);
         PlayerPrefs.SetFloat("VoteSpeed", VoteSpeedSlider.value);
         PlayerPrefs.SetInt("BackgroundIndex", BackgroundSelector.CurrentIndex);
+        PlayerPrefs.SetInt("ShowTimer", Convert.ToInt32(ShowTimerToggle.isOn));
     }
 
     public void OpenOptionsPanel()
@@ -60,6 +65,7 @@ public class OptionsPanelManager : MonoBehaviour, IPointerEnterHandler, IPointer
         PlayerPrefs.SetFloat("Radius", RadiusSlider.value);
         PlayerPrefs.SetFloat("VoteSpeed", VoteSpeedSlider.value);
         PlayerPrefs.SetInt("BackgroundIndex", BackgroundSelector.CurrentIndex);
+        PlayerPrefs.SetInt("ShowTimer", Convert.ToInt32(ShowTimerToggle.isOn));
     }
 
     public void OnClickResetOptions()

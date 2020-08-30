@@ -47,6 +47,8 @@ public class TownsfolkManager : MonoBehaviour, IPointerClickHandler
     public VoteManager VoteManager;
     public bool IsVoteActive { get; set; }
 
+    bool ShowTimer = true;
+
     struct RoleCount
     {
         public RoleCount(int townsfolk, int outsiders, int minions) { Townsfolk = townsfolk; Outsiders = outsiders; Minions = minions; }
@@ -260,12 +262,28 @@ public class TownsfolkManager : MonoBehaviour, IPointerClickHandler
     {
         IsVoteActive = false;
 
-        Timer.gameObject.SetActive(true);
+        Timer.gameObject.SetActive(ShowTimer);
         EndNominationButton.gameObject.SetActive(false);
 
         VoteManager.gameObject.SetActive(false);
         VoteManager.transform.SetAsLastSibling();
         VoteManager.Reset();
+    }
+
+    public void SetShowTimer(bool show)
+    {
+        ShowTimer = show;
+        if(ShowTimer)
+        {
+            if(IsVoteActive == false)
+            {
+                Timer.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            Timer.gameObject.SetActive(false);
+        }
     }
 
     public void OnClickReset()
